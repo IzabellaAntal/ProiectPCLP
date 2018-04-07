@@ -13,15 +13,68 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="docs">
+      <UniqueIdentifier>{f01d3556-1e47-4ace-863f-0a9c40a77dda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyForm.cpp">
+    <ClCompile Include="StartPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Login.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="StartPage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Login.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="docs\MySqlTransaction.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlParameterCollection.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlParameter.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlHelper.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlException.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlDataReader.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlDataAdapter.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlConnectionStringBuilder.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlConnection.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlCommandBuilder.xml">
+      <Filter>docs</Filter>
+    </Xml>
+    <Xml Include="docs\MySqlCommand.xml">
+      <Filter>docs</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Login.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

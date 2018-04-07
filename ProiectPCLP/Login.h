@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace ProiectPCLP {
 
 	using namespace System;
@@ -8,6 +9,7 @@ namespace ProiectPCLP {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace MySql::Data::MySqlClient;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -36,9 +38,11 @@ namespace ProiectPCLP {
 		}
 	private: System::Windows::Forms::Button^  loginButton;
 	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::TextBox^  usernameTextbox;
+
 	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::TextBox^  textBox2;
+	private: System::Windows::Forms::TextBox^  passwordTextBox;
+
 	protected:
 
 	protected:
@@ -58,9 +62,9 @@ namespace ProiectPCLP {
 		{
 			this->loginButton = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->usernameTextbox = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->passwordTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// loginButton
@@ -84,12 +88,12 @@ namespace ProiectPCLP {
 			this->label1->TabIndex = 1;
 			this->label1->Text = L"Username";
 			// 
-			// textBox1
+			// usernameTextbox
 			// 
-			this->textBox1->Location = System::Drawing::Point(227, 79);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(100, 20);
-			this->textBox1->TabIndex = 2;
+			this->usernameTextbox->Location = System::Drawing::Point(227, 79);
+			this->usernameTextbox->Name = L"usernameTextbox";
+			this->usernameTextbox->Size = System::Drawing::Size(100, 20);
+			this->usernameTextbox->TabIndex = 2;
 			// 
 			// label2
 			// 
@@ -100,23 +104,23 @@ namespace ProiectPCLP {
 			this->label2->TabIndex = 3;
 			this->label2->Text = L"Password";
 			// 
-			// textBox2
+			// passwordTextBox
 			// 
-			this->textBox2->Location = System::Drawing::Point(227, 115);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->PasswordChar = '*';
-			this->textBox2->Size = System::Drawing::Size(100, 20);
-			this->textBox2->TabIndex = 4;
-			this->textBox2->UseSystemPasswordChar = true;
+			this->passwordTextBox->Location = System::Drawing::Point(227, 115);
+			this->passwordTextBox->Name = L"passwordTextBox";
+			this->passwordTextBox->PasswordChar = '*';
+			this->passwordTextBox->Size = System::Drawing::Size(100, 20);
+			this->passwordTextBox->TabIndex = 4;
+			this->passwordTextBox->UseSystemPasswordChar = true;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(913, 394);
-			this->Controls->Add(this->textBox2);
+			this->ClientSize = System::Drawing::Size(521, 254);
+			this->Controls->Add(this->passwordTextBox);
 			this->Controls->Add(this->label2);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->usernameTextbox);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->loginButton);
 			this->Name = L"MyForm";
@@ -127,8 +131,34 @@ namespace ProiectPCLP {
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ connectionInfo = "datasource=127.0.0.1;port=3306;username=root;password=;database=carrental;SslMode=none";
+		String^ SQLQuery = "select * from utilizatori where NumeUtilizator = " + "'" + usernameTextbox->Text + "'" + " and Parola = " + "'" + passwordTextBox->Text + "'" + ";";
+		MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+		MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
+		MySqlDataReader^ dataReader;
 
+		try {
+			conn->Open();
+			dataReader = connCmd->ExecuteReader();
+			int count = 0;
+			while (dataReader->Read()) {
+				count++;
+			}
+			if (count == 1) {
+				StartPage^ page = gcnew StartPage();
+				this->Hide();
+				page->Show(this);
+			}
+			else {
+				usernameTextbox->Text = "";
+				passwordTextBox->Text = "";
+				MessageBox::Show("user si pass gresite");
+			}
 
+		}
+		catch (Exception^ex) {
+			MessageBox::Show(ex->Message);
+		}
 	}
 	};
 }
